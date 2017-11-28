@@ -75,7 +75,8 @@ namespace AILABFORUM.Controllers
         //Login POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Models.User dane, Models.UserLogin zap, string ReturnUrl="")
+        public ActionResult Login(UserLogin dane, string ReturnUrl="")
+            //public ActionResult Login(Models.User dane, Models.UserLogin zap, string ReturnUrl = "")
         {
             string message = "";
             using (AILABFORUMEntities db = new AILABFORUMEntities())
@@ -83,8 +84,8 @@ namespace AILABFORUM.Controllers
                 var v = db.Users.Where(x => x.login == dane.login && x.haslo == dane.haslo).FirstOrDefault();
                 if (v != null)
                 {
-                        int timeout = zap.zapamietaj ? 525600 : 20; //525600 minut to 1 rok
-                        var ticket = new FormsAuthenticationTicket(dane.login, zap.zapamietaj, timeout);
+                        int timeout = dane.zapamietaj ? 525600 : 20; //525600 minut to 1 rok
+                        var ticket = new FormsAuthenticationTicket(dane.login, dane.zapamietaj, timeout);
                         string encrypted = FormsAuthentication.Encrypt(ticket);
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
                         cookie.Expires = DateTime.Now.AddMinutes(timeout);
@@ -109,7 +110,7 @@ namespace AILABFORUM.Controllers
         }
 
         //Logout
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public ActionResult Logout()
         {

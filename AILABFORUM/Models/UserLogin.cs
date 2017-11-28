@@ -12,6 +12,7 @@ namespace AILABFORUM.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Wprowadź nazwę użytkownika")]
         public string login { get; set; }
 
+        [Display(Name ="Hasło")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Wprowadź hasło")]
         [DataType(DataType.Password)]
         public string haslo { get; set; }

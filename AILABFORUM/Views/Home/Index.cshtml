@@ -1,14 +1,14 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "AILabForum";
 }
 
 Witaj, @HttpContext.Current.User.Identity.Name
 
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("Logout", "User", FormMethod.Post))
+    using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
     {
-        <a href="javascript:document:getElementById('logoutForm').submit()">Wyloguj</a>
+        <a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
     }
 }
 
