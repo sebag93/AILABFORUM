@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AILABFORUM.Models;
+using System.Web.Security;
 
 namespace AILABFORUM.Controllers
 {
@@ -62,6 +63,58 @@ namespace AILABFORUM.Controllers
             ViewBag.Message = message;
             ViewBag.Status = Status;
             return View(user);
+        }
+
+        //Login
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        //Login POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(Models.User dane, Models.UserLogin zap, string ReturnUrl="")
+        {
+            string message = "";
+            using (AILABFORUMEntities db = new AILABFORUMEntities())
+            {
+                var v = db.Users.Where(x => x.login == dane.login && x.haslo == dane.haslo).FirstOrDefault();
+                if (v != null)
+                {
+                        int timeout = zap.zapamietaj ? 525600 : 20; //525600 minut to 1 rok
+                        var ticket = new FormsAuthenticationTicket(dane.login, zap.zapamietaj, timeout);
+                        string encrypted = FormsAuthentication.Encrypt(ticket);
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                        cookie.HttpOnly = true;
+                        Response.Cookies.Add(cookie);
+                        if (Url.IsLocalUrl(ReturnUrl))
+                        {
+                            return RedirectToAction(ReturnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                }
+                else
+                {
+                    message = "Wprowadzono niepoprawne dane";
+                }
+            }
+            ViewBag.Message = message;
+            return View();
+        }
+
+        //Logout
+        //[Authorize]
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "User");
         }
 
         //Czy email istnieje juz w bazie
