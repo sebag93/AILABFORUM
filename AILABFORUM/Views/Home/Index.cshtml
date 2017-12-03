@@ -2,16 +2,6 @@
     ViewBag.Title = "AILabForum";
 }
 
-Witaj, @HttpContext.Current.User.Identity.Name
-
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
-    {
-        <a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
-    }
-}
-
 <div class="jumbotron">
     <h1>CHATBOX</h1>
 
