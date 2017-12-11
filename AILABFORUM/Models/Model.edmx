@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="AILABFORUMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Topics">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tytul" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="tresc" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="autor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="data_dodania" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="id" />
@@ -18,6 +28,7 @@
           <Property Name="miejscowosc" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="AILABFORUMModelStoreContainer">
+          <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -25,6 +36,16 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AILABFORUMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tytul" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tresc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="autor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="data_dodania" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="id" />
@@ -38,6 +59,7 @@
           <Property Name="miejscowosc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="AILABFORUMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Topics" EntityType="Self.Topic" />
           <EntitySet Name="Users" EntityType="Self.User" />
         </EntityContainer>
       </Schema>
@@ -46,6 +68,17 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AILABFORUMModelStoreContainer" CdmEntityContainer="AILABFORUMEntities">
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="AILABFORUMModel.Topic">
+              <MappingFragment StoreEntitySet="Topics">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tytul" ColumnName="tytul" />
+                <ScalarProperty Name="tresc" ColumnName="tresc" />
+                <ScalarProperty Name="autor" ColumnName="autor" />
+                <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="AILABFORUMModel.User">
               <MappingFragment StoreEntitySet="Users">

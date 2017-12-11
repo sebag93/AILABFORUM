@@ -25,6 +25,7 @@ namespace AILABFORUM.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }
