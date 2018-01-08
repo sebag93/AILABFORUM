@@ -4,7 +4,7 @@
     ViewBag.Title = "AILabForum - Utwórz temat";
 }
 
-<h2>Utwórz temat</h2>
+<h2>Utwórz nowy temat</h2>
 
 @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
 {
@@ -36,7 +36,8 @@ else
             <div class="form-group">
                 @Html.LabelFor(model => model.tresc, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.tresc, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.EditorFor(model => model.tresc, new { htmlAttributes = new { @class = "new-topic-content" } })*@
+                    @Html.TextAreaFor(model => model.tresc, htmlAttributes: new { @class = "new-topic-content" })
                     @Html.ValidationMessageFor(model => model.tresc, "", new { @class = "text-danger" })
                 </div>
             </div>
