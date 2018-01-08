@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AILABFORUM.Models;
 using System.Web.Security;
+using System.Data.Entity;
 
 namespace AILABFORUM.Controllers
 {
@@ -118,6 +119,42 @@ namespace AILABFORUM.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "User");
+        }
+
+        //Manage Account
+        [Authorize]
+        [HttpGet]
+        public ActionResult ManageAcc()
+        {
+            return View();
+        }
+
+        //Manage Account POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageAcc(User user)
+        {
+            bool Status = false;
+            string message = "";
+            user.login = User.Identity.Name;
+            using (AILABFORUMEntities db = new AILABFORUMEntities())
+            {
+                var v = db.Users.Where(x => x.login == user.login && x.haslo == user.haslo).FirstOrDefault();
+                if (v != null)
+                {
+                    db.Users.SqlQuery("UPDATE Users SET haslo ='" + user.nowehaslo + "' WHERE login='" + User.Identity.Name + "'");
+                    db.SaveChanges();
+                    message = "Hasło zmienione pomyślnie.";
+                    Status = true;
+                }
+                else
+                {
+                    message = "Wprowadzono błędne hasło.";
+                }
+            }
+            ViewBag.Message = message;
+            ViewBag.Status = Status;
+            return View(user);
         }
 
         //Czy email istnieje juz w bazie
