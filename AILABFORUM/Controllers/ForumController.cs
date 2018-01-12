@@ -39,7 +39,7 @@ namespace AILABFORUM.Controllers
                 topic.autor = User.Identity.Name;
 
                 #region //zapis do bazy danych
-                using (AILABFORUMEntities db = new AILABFORUMEntities())
+                using (AiLabForumEntities db = new AiLabForumEntities())
                 {
                     db.Topics.Add(topic);
                     db.SaveChanges();
@@ -61,7 +61,7 @@ namespace AILABFORUM.Controllers
         [NonAction]
         public bool IsTopicExist(string TYTUL)
         {
-            using (AILABFORUMEntities db = new AILABFORUMEntities())
+            using (AiLabForumEntities db = new AiLabForumEntities())
             {
                 var v = db.Topics.Where(x => x.tytul == TYTUL).FirstOrDefault();
                 return v != null;
@@ -71,7 +71,7 @@ namespace AILABFORUM.Controllers
         [Authorize]
         public ActionResult ShowAll()
         {
-            AILABFORUMEntities db = new AILABFORUMEntities();
+            AiLabForumEntities db = new AiLabForumEntities();
             var data = db.Topics.ToList();
             ViewBag.userdetails = data;
             return View();

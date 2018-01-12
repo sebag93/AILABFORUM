@@ -13,10 +13,10 @@ namespace AILABFORUM.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AILABFORUMEntities : DbContext
+    public partial class AiLabForumEntities : DbContext
     {
-        public AILABFORUMEntities()
-            : base("name=AILABFORUMEntities")
+        public AiLabForumEntities()
+            : base("name=AiLabForumEntities")
         {
         }
     

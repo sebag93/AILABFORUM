@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AILABFORUMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AiLabForumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Topics">
           <Key>
             <PropertyRef Name="id" />
@@ -27,7 +27,7 @@
           <Property Name="data_urodzenia" Type="date" />
           <Property Name="miejscowosc" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityContainer Name="AILABFORUMModelStoreContainer">
+        <EntityContainer Name="AiLabForumModelStoreContainer">
           <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -35,7 +35,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="AILABFORUMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="AiLabForumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Topic">
           <Key>
             <PropertyRef Name="id" />
@@ -58,7 +58,7 @@
           <Property Name="data_urodzenia" Type="DateTime" Precision="0" />
           <Property Name="miejscowosc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="AILABFORUMEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AiLabForumEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Topics" EntityType="Self.Topic" />
           <EntitySet Name="Users" EntityType="Self.User" />
         </EntityContainer>
@@ -67,9 +67,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AILABFORUMModelStoreContainer" CdmEntityContainer="AILABFORUMEntities">
+        <EntityContainerMapping StorageEntityContainer="AiLabForumModelStoreContainer" CdmEntityContainer="AiLabForumEntities">
           <EntitySetMapping Name="Topics">
-            <EntityTypeMapping TypeName="AILABFORUMModel.Topic">
+            <EntityTypeMapping TypeName="AiLabForumModel.Topic">
               <MappingFragment StoreEntitySet="Topics">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="tytul" ColumnName="tytul" />
@@ -80,7 +80,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="AILABFORUMModel.User">
+            <EntityTypeMapping TypeName="AiLabForumModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="login" ColumnName="login" />

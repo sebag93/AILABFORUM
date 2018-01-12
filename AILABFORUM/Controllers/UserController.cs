@@ -48,7 +48,7 @@ namespace AILABFORUM.Controllers
                 #endregion
 
                 #region //zapis do bazy danych
-                using (AILABFORUMEntities db = new AILABFORUMEntities())
+                using (AiLabForumEntities db = new AiLabForumEntities())
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
@@ -79,7 +79,7 @@ namespace AILABFORUM.Controllers
         public ActionResult Login(UserLogin dane, string ReturnUrl="")
         {
             string message = "";
-            using (AILABFORUMEntities db = new AILABFORUMEntities())
+            using (AiLabForumEntities db = new AiLabForumEntities())
             {
                 var v = db.Users.Where(x => x.login == dane.login && x.haslo == dane.haslo).FirstOrDefault();
                 if (v != null)
@@ -137,12 +137,12 @@ namespace AILABFORUM.Controllers
             bool Status = false;
             string message = "";
             user.login = User.Identity.Name;
-            using (AILABFORUMEntities db = new AILABFORUMEntities())
+            using (AiLabForumEntities db = new AiLabForumEntities())
             {
                 var v = db.Users.Where(x => x.login == user.login && x.haslo == user.haslo).FirstOrDefault();
                 if (v != null)
                 {
-                    db.Users.SqlQuery("UPDATE Users SET haslo ='" + user.nowehaslo + "' WHERE login='" + User.Identity.Name + "'");
+                    db.Users.SqlQuery("UPDATE Users SET haslo ='" + user.haslo + "' WHERE login='" + User.Identity.Name + "'");
                     db.SaveChanges();
                     message = "Hasło zmienione pomyślnie.";
                     Status = true;
@@ -161,7 +161,7 @@ namespace AILABFORUM.Controllers
         [NonAction]
         public bool IsEmailExist(string EMAIL)
         {
-            using (AILABFORUMEntities db = new AILABFORUMEntities())
+            using (AiLabForumEntities db = new AiLabForumEntities())
             {
                 var v = db.Users.Where(x => x.email == EMAIL).FirstOrDefault();
                 return v != null;
@@ -172,7 +172,7 @@ namespace AILABFORUM.Controllers
         [NonAction]
         public bool IsLoginExist(string LOGIN)
         {
-            using (AILABFORUMEntities db = new AILABFORUMEntities())
+            using (AiLabForumEntities db = new AiLabForumEntities())
             {
                 var v = db.Users.Where(x => x.login == LOGIN).FirstOrDefault();
                 return v != null;
