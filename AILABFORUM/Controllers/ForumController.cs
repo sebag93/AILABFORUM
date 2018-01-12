@@ -57,8 +57,6 @@ namespace AILABFORUM.Controllers
             return View(topic);
         }
 
-
-
         //Czy temat o danej nazwie istnieje
         [NonAction]
         public bool IsTopicExist(string TYTUL)
@@ -68,6 +66,15 @@ namespace AILABFORUM.Controllers
                 var v = db.Topics.Where(x => x.tytul == TYTUL).FirstOrDefault();
                 return v != null;
             }
+        }
+
+        [Authorize]
+        public ActionResult ShowAll()
+        {
+            AILABFORUMEntities db = new AILABFORUMEntities();
+            var data = db.Topics.ToList();
+            ViewBag.userdetails = data;
+            return View();
         }
     }
 }

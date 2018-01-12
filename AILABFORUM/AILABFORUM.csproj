@@ -265,6 +265,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Forum\NewTopic.cshtml" />
     <Content Include="Views\User\ManageAcc.cshtml" />
+    <Content Include="Views\Forum\ShowAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
