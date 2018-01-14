@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AILABFORUM.Models;
 using System.Web.Security;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace AILABFORUM.Controllers
 {
@@ -137,24 +138,17 @@ namespace AILABFORUM.Controllers
             bool Status = false;
             string message = "";
             user.login = User.Identity.Name;
-            using (AiLabForumEntities db = new AiLabForumEntities())
-            {
-                var v = db.Users.Where(x => x.login == user.login && x.haslo == user.haslo).FirstOrDefault();
-                if (v != null)
-                {
-                    db.Users.SqlQuery("UPDATE Users SET haslo ='" + user.haslo + "' WHERE login='" + User.Identity.Name + "'");
-                    db.SaveChanges();
-                    message = "Hasło zmienione pomyślnie.";
-                    Status = true;
-                }
-                else
-                {
-                    message = "Wprowadzono błędne hasło.";
-                }
-            }
-            ViewBag.Message = message;
-            ViewBag.Status = Status;
-            return View(user);
+            AiLabForumEntities db = new AiLabForumEntities();
+            User do_zmiany = db.Users.SingleOrDefault(x => x.login == user.login);
+            do_zmiany.haslo = user.haslo;
+            do_zmiany.powtorzhaslo = user.powtorzhaslo;
+            db.SaveChanges();
+            message = "Hasło zmienione pomyślnie.";
+            Status = true;
+            
+        ViewBag.Message = message;
+        ViewBag.Status = Status;
+        return View(user);
         }
 
         //Czy email istnieje juz w bazie
