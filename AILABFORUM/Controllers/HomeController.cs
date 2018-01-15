@@ -17,7 +17,7 @@ namespace AILABFORUM.Controllers
         [Authorize]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Aplikacje internetowe 2017/2018.";
 
             return View();
         }
